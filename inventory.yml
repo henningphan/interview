@@ -1,0 +1,35 @@
+all:
+  hosts:
+    monitoring.primary.prod.swf.autoheim.net: # CNAME
+      alias: grafana.monitoring.primary.prod.swf.autoheim.net # CNAME
+
+    loki.monitoring.primary.prod.swf.autoheim.net: # CNAME
+      machine_description:
+        hostname: vm000437.int.autoheim.net # A-Record
+
+    grafana.monitoring.primary.prod.swf.autoheim.net:
+      machine_description:
+        hostname: vm000437.int.autoheim.net
+
+    prometheus.monitoring.primary.prod.swf.autoheim.net:
+      machine_description:
+        hostname: vm000437.int.autoheim.net
+
+    prometheus.monitoring.build.prod.swf.autoheim.net:
+      machine_description:
+        hostname: vm000480.int.autoheim.net
+
+  children:
+    service_hosts:
+      hosts:
+        monitoring.primary.prod.swf.autoheim.net:
+        prometheus.monitoring.build.prod.swf.autoheim.net:
+
+    grafana:
+      hosts:
+        grafana.monitoring.primary.prod.swf.autoheim.net:
+
+    prometheus:
+      hosts:
+        prometheus.monitoring.primary.prod.swf.autoheim.net:
+        prometheus.monitoring.build.prod.swf.autoheim.net:
